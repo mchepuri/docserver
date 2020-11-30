@@ -1,10 +1,6 @@
+const {awsConfig} =require('../config/awsConfig.js');
 const saveToken = (refreshToken, user_email, refreshTokenExpires, tokenType) =>{
     var AWS = require("aws-sdk");
-    let awsConfig = {
-        "region": "us-west-2",
-        "endpoint": "http://dynamodb.us-west-2.amazonaws.com",
-        "accessKeyId": "AKIAU4O2RSXYCBUHBQ7P", "secretAccessKey": "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"
-    };
     AWS.config.update(awsConfig);
 
     let docClient = new AWS.DynamoDB.DocumentClient();
