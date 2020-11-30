@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
 const { User } = require('../models');
+const { createAccount,getUser } = require('../models/account.model');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -8,10 +9,11 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<User>}
  */
 const createUser = async (userBody) => {
-  if (await User.isEmailTaken(userBody.email)) {
+  /*if (await User.isEmailTaken(userBody.email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
-  const user = await User.create(userBody);
+  const user = await User.create(userBody);*/
+  const user = createAccount(userBody);
   return user;
 };
 
@@ -44,8 +46,14 @@ const getUserById = async (id) => {
  * @returns {Promise<User>}
  */
 const getUserByEmail = async (email) => {
-  return User.findOne({ email });
+  
+  let user=await getUser(email);
+  console.log('getUserByEmail==>',user);
+  return user;
 };
+
+
+
 
 /**
  * Update user by id
